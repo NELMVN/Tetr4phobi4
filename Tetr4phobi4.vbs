@@ -1,7 +1,29 @@
-Option Explicit ' * v1.0.0.0 | Copyright ⓒ github.com/NELMVN
+Option Explicit ' * v1.0.0.1 | Copyright ⓒ github.com/NELMVN
 ' ************************************************************************************
 ' *
 ' *    Tetr4pobi4
+' *
+' ************************************************************************************
+' *
+' *    MIT License
+' *
+' *    Permission is hereby granted, free of charge, to any person obtaining a copy
+' *    of this software and associated documentation files (the "Software"), to deal
+' *    in the Software without restriction, including without limitation the rights
+' *    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+' *    copies of the Software, and to permit persons to whom the Software is
+' *    furnished to do so, subject to the following conditions:
+' *
+' *    The above copyright notice and this permission notice shall be included in all
+' *    copies or substantial portions of the Software.
+' *
+' *    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+' *    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+' *    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+' *    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+' *    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+' *    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+' *    SOFTWARE.
 ' *
 ' ************************************************************************************
 
@@ -37,23 +59,20 @@ Compiler CStr(Wscript.Arguments.Item(0)) : Private Sub Compiler(Source)
 
             For Each this in Split(sourceText, "$$$$")
                 If StrComp(this, "4444") = 0 Then
-                    If Cell(Pointer) > 127 Then
-                        Cell(Pointer) = 52
-                    End If
-
+                    If Cell(Pointer) > 127 Then Cell(Pointer) = 52
                     Wscript.Stdout.Write(Chr(Cell(Pointer)))
 
                 ElseIf StrComp(this, "44UR") = 0 Then
-                    Pointer = Pointer - 1
+                    If Pointer - 1 >= 0 then Pointer = Pointer - 1
                 
                 ElseIf StrComp(this, "FO44") = 0 Then
-                    Pointer = Pointer + 1
+                    If Pointer + 1 <= 3 then Pointer = Pointer + 1
 
                 ElseIf StrComp(this, "4OUR") = 0 Then
-                    Cell(Pointer) = Cell(Pointer) + 4
+                    If Cell(Pointer) + 4 <= 4444 Then Cell(Pointer) = Cell(Pointer) + 4
 
                 ElseIf StrComp(this, "FOU4") = 0 Then
-                    Cell(Pointer) = Cell(Pointer) - 4
+                    If Cell(Pointer) - 4 >= 0 Then Cell(Pointer) = Cell(Pointer) - 4
 
                 ElseIf StrComp(this, "FFFR") = 0 Then
                     ' Not implement yet
@@ -62,7 +81,7 @@ Compiler CStr(Wscript.Arguments.Item(0)) : Private Sub Compiler(Source)
                     ' Not implement yet
 
                 ElseIf StrComp(this, "four") = 0 Then
-                    Cell(Pointer) = Cell(Pointer) / 4
+                    If Cell(Pointer) > 0 Then Cell(Pointer) = Cell(Pointer) / 4
 
                 ElseIf StrComp(this, "fuor") = 0 Then
                     Cell(Pointer) = Cell(Pointer) * 4
