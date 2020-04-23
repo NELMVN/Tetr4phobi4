@@ -64,4 +64,3 @@ or
 
 * You only have **4 cells**.
 * The maximum value of each cell is **4,444**.
-* If you got a decimal value in a cell using `four` or `fuor`, it will automatically set it into 4.
