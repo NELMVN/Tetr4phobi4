@@ -1,73 +1,91 @@
-{44} Hello World in Tetr4phobi4
-
-{44} H
-4OUR$$$$4OUR$$$$four                            {44} <-- (4 + 4) / 4 = 2
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$fuor            {44} <-- (2 + 4 + 4 + 4 + 4) * 4 = 72
-4444$$$$ffff                                    {44} <-- Print H then reset Cell[1]
-
-{44} e
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$four    {44} <-- (4 + 4 + 4 + 4 + 4) / 4 = 5
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 5 + 4 + 4 + 4 + 4 + 4 + 4 = 29
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 29 + 4 + 4 + 4 + 4 + 4 + 4 = 53
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 53 + 4 + 4 + 4 + 4 + 4 + 4 = 77
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 77 + 4 + 4 + 4 + 4 + 4 + 4 = 101
-4444$$$$ffff                                    {44} <-- Print e then reset Cell[1]
-
-{44} l
-4OUR$$$$4OUR$$$$4OUR$$$$four                    {44} <-- (4 + 4 + 4) / 4 = 3
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- (3 + 4 + 4 + 4 + 4 + 4 + 4) = 27
-fuor                                            {44} <-- 27 * 4 = 108
-4444$$$$4444                                    {44} <-- Print l twice
-FO44                                            {44} <-- Go to Cell[2]
-
-{44} o
-4OUR$$$$4OUR$$$$4OUR$$$$four                    {44} <-- (4 + 4 + 4) / 4 = 3
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <--  3 + 4 + 4 + 4 + 4 + 4 + 4 = 27
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 27 + 4 + 4 + 4 + 4 + 4 + 4 = 51
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 51 + 4 + 4 + 4 + 4 + 4 + 4 = 75
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 75 + 4 + 4 + 4 + 4 + 4 + 4 = 99
-4OUR$$$$4OUR$$$$4OUR                            {44} <-- 99 + 4 + 4 + 4             = 111
-4444$$$$FO44                                    {44} <-- Print o then Go to Cell[3]
-
-{44} Whitespace
-4OUR$$$$4OUR$$$$fuor                            {44} <-- (4 * 4) * 4 = 32
-4444$$$$ffff                                    {44} <-- Print Whitespace then reset Cell[3]
-
-{44} W
-4OUR$$$$4OUR$$$$4OUR$$$$four                    {44} <-- (4 + 4 + 4) / 4 = 3
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <--  3 + 4 + 4 + 4 + 4 + 4 + 4 = 27
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 27 + 4 + 4 + 4 + 4 + 4 + 4 = 51
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 51 + 4 + 4 + 4 + 4 + 4 + 4 = 75
-4OUR$$$$4OUR$$$$4OUR                            {44} <-- 75 + 4 + 4 + 4             = 87
-4444$$$$ffff                                    {44} <-- Print W then reset Cell[3]
-
-{44} o
-44UR$$$$4444                                    {44} <-- Go to Cell[2] and Print o
-ffff                                            {44} <-- Reset unused Cell[2]
-
-{44} r
-4OUR$$$$4OUR$$$$four                            {44} <-- (4 + 4) / 4 = 2
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <--  2 + 4 + 4 + 4 + 4 + 4 + 4 = 26
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 26 + 4 + 4 + 4 + 4 + 4 + 4 = 50
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 50 + 4 + 4 + 4 + 4 + 4 + 4 = 74
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 74 + 4 + 4 + 4 + 4 + 4 + 4 = 98
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR                    {44} <-- 98 + 4 + 4 + 4 + 4         = 114
-4444                                            {44} <-- Print r
-
-{44} l
-44UR$$$$4444                                    {44} <-- Go to Cell[1] and Print l
-ffff                                            {44} <-- Reset unused Cell[1]
-
-{44} d
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 4 + 4 + 4 + 4 + 4 + 4 = 24
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 24 + 4 + 4 + 4 + 4 + 4 + 4 = 48
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 48 + 4 + 4 + 4 + 4 + 4 + 4 = 72
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <-- 72 + 4 + 4 + 4 + 4 + 4 + 4 = 96
-4OUR                                            {44} <-- 96 + 4                     = 100
-4444$$$$ffff                                    {44} <-- Print d then reset Cell[1]
-
-{44} !
-4OUR$$$$four                                    {44} <-- 4 / 4 = 1
-4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR$$$$4OUR    {44} <--  1 + 4 + 4 + 4 + 4 + 4 + 4 = 25
-4OUR$$$$4OUR                                    {44} <-- 25 + 4 + 4                 = 33
-4444                                            {44} <-- Print !
+4OUR
+fuor
+fuor
+4OUR
+4OUR
+4444
+FO44
+4OUR
+4OUR
+4OUR
+4OUR
+4OUR
+fuor
+4OUR
+4OUR
+4OUR
+4OUR
+4OUR
+fuor
+4OUR
+four
+4444
+fuor
+4OUR
+4OUR
+4OUR
+4OUR
+4OUR
+4OUR
+4OUR
+four
+4444
+4444
+fuor
+4OUR
+4OUR
+4OUR
+four
+4444
+FO44
+4OUR
+4OUR
+4OUR
+fuor
+FOU4
+4444
+ffff
+4OUR
+4OUR
+fuor
+4444
+FO44
+4OUR
+4OUR
+4OUR
+4OUR
+4OUR
+fuor
+4OUR
+4OUR
+fuor
+FOU4
+four
+4444
+4OUR
+4OUR
+4OUR
+4OUR
+4OUR
+4OUR
+4444
+4OUR
+fuor
+FOU4
+four
+4444
+FOU4
+FOU4
+fuor
+4OUR
+4OUR
+four
+4444
+FOU4
+FOU4
+4444
+44UR
+fuor
+4OUR
+four
+4444
