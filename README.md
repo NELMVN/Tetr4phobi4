@@ -14,6 +14,8 @@ Run **Tetr4phobi4.vbs** by using CMD (Command Prompt).
 cscript Tetr4phobi4.vbs test\Hello World.444
 ```
 
+Or you can use this **[compiler](https://cdpn.io/nelmvn/debug/xxZdzGo/xnkabZaZbYxM)** instead.
+
 ---
 
 <h2 align="Center">Syntaxes</h2>
