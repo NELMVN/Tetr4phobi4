@@ -1,4 +1,4 @@
-<p align="Center"><a href="https://vuejs.org" target="_blank" rel="noopener noreferrer">
+<p align="Center">
     <img width="100" src="http://www.mediafire.com/convkey/d9ed/edp1u5u2pqv6sv2zg.jpg" alt="Tetr4phobi4 logo">
 </a></p>
 
