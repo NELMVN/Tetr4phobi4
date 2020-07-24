@@ -1,107 +1,117 @@
-Option Explicit ' * v1.0.0.1 | Copyright ⓒ github.com/NELMVN
-' ************************************************************************************
-' *
-' *    Tetr4pobi4
-' *
-' ************************************************************************************
-' *
-' *    MIT License
-' *
-' *    Permission is hereby granted, free of charge, to any person obtaining a copy
-' *    of this software and associated documentation files (the "Software"), to deal
-' *    in the Software without restriction, including without limitation the rights
-' *    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-' *    copies of the Software, and to permit persons to whom the Software is
-' *    furnished to do so, subject to the following conditions:
-' *
-' *    The above copyright notice and this permission notice shall be included in all
-' *    copies or substantial portions of the Software.
-' *
-' *    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-' *    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-' *    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-' *    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-' *    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-' *    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-' *    SOFTWARE.
-' *
-' ************************************************************************************
+Option Explicit
 
-Private Cell(3), Pointer
+Const FILE_TYPE     = "444"
+Const ERROR_MSG     = "[Tetr4phobi4 Error]"
+Const REGEX_COMMENT = " +|\{44\}.*|(\r\n|\n|\r){2,}"
+Const REGEX_DOLLARS = "\${4}"
 
-Compiler CStr(Wscript.Arguments.Item(0)) : Private Sub Compiler(Source)
-    Dim FSO, sourceFile, sourceText, compiledSourceCode
-    Dim this, Line, hasComment
+Private lineCount  : lineCount   = 0
 
-    Set FSO = CreateObject("Scripting.FileSystemObject")
-    Cell(0) = 0: Cell(1) = 0: Cell(2) = 0: Cell(3) = 0
-    Pointer = 0
+Private Cell(3): Cell(0) = 0: Cell(1) = 0: Cell(2) = 0: Cell(3) = 0
+Private Pointer: Pointer = 0
+Private FSO: set FSO = CreateObject("Scripting.FileSystemObject")
+Private Halt: Halt = False
+Private Optimization: Optimization = False
 
-    If InStrB(Source, ".444") > 0 Then
-        If FSO.FileExists(Source) Then
-            Set sourceFile = FSO.OpenTextFile(Source, 1)
+Private regexNullComment: Set regexNullComment = New RegExp
+regexNullComment.Pattern = REGEX_COMMENT
+regexNullComment.Global  = True
 
-            While Not sourceFile.AtEndOfStream
-                Line = CStr(sourceFile.ReadLine)
-                Line = Replace(Line, Chr(32), vbNullString)
+Private regexSSSSCommand: Set regexSSSSCommand = New RegExp
+regexSSSSCommand.Pattern = REGEX_DOLLARS
+regexSSSSCommand.Global  = True
 
-                hasComment = InStr(Line, "{44}")
-                If hasComment > 0 Then
-                    If StrComp(Line, "{44}") <> 0 Then Line = Mid(Line, 1, hasComment - 1)
-                End If
+Private Sub ERROR(msg): WScript.StdErr.Write vbCrLf & ERROR_MSG & vbTab & ">>" & vbTab & msg: End Sub
 
-                If StrComp(Line, vbNullString) <> 0 And StrComp(Line, "{44}") <> 0 Then
-                    sourceText = sourceText + Line + "$$$$"
-                End If
-            Wend
-            sourceFile.Close
-            sourceText = Left(sourceText, Len(sourceText) - 4)
+Begin WScript.Arguments: Private Sub Begin(Param)
 
-            For Each this in Split(sourceText, "$$$$")
-                If StrComp(this, "4444") = 0 Then
-                    If Cell(Pointer) > 127 Then Cell(Pointer) = 52
-                    Wscript.Stdout.Write(Chr(Cell(Pointer)))
+    Select Case WScript.Arguments.Count
+        Case 0
+            ERROR "[Input Error]" & vbTab & ">>" & vbTab & "[nil]" & vbTab & ">>" & vbTab & "There is no arguments." & vbCrLf
+        Case 1, 2
+            If FSO.GetExtensionName(Param(0)) = FILE_TYPE Then
+                if FSO.FileExists(Param(0)) then
+                    Dim sourceFile: Set sourceFile = FSO.OpenTextFile(Param(0), 1)
+                    Dim Line
 
-                ElseIf StrComp(this, "44UR") = 0 Then
-                    If Pointer - 1 >= 0 then Pointer = Pointer - 1
-                
-                ElseIf StrComp(this, "FO44") = 0 Then
-                    If Pointer + 1 <= 3 then Pointer = Pointer + 1
+                    If WScript.Arguments.Count = 2 Then
+                        Optimization = Param(1) = "-optimize"
+                    End If
 
-                ElseIf StrComp(this, "4OUR") = 0 Then
-                    If Cell(Pointer) + 4 <= 4444 Then Cell(Pointer) = Cell(Pointer) + 4
+                    Dim optimizedFile: If Optimization Then
+                        WScript.Stdout.Write vbCrLf & "[Tetr4phobi4]" & vbTab & ">>" & vbTab & "[-optimize]" & vbTab & "Initialize optimization....." & vbCrLf & vbCrLf
+                        ' WScript.Stdout.Write "[" & FSO.GetParentFolderName(WScript.ScriptFullName) & "\444-optimized\" & FSO.GetBaseName(Param(0)) & "-optimized.444" & "]" & vbCrLf
+                        Set optimizedFile = FSO.CreateTextFile(FSO.GetParentFolderName(WScript.ScriptFullName) & "\" & FSO.GetBaseName(Param(0)) & "-optimized.444")
+                    End If
 
-                ElseIf StrComp(this, "FOU4") = 0 Then
-                    If Cell(Pointer) - 4 >= 0 Then Cell(Pointer) = Cell(Pointer) - 4
+                    Do While Not sourceFile.AtEndOfStream
+                        lineCount = lineCount + 1
+                        Line = regexNullComment.Replace(sourceFile.ReadLine, vbNullString)
 
-                ElseIf StrComp(this, "FFFR") = 0 Then
-                    ' Not implement yet
+                        If Line <> vbNullString Then
+                            Line = regexSSSSCommand.Replace(Line, vbCrLf)
 
-                ElseIf StrComp(this, "RRRF") = 0 Then
-                    ' Not implement yet
+                            Dim Command: For Each Command In Split(Line, vbCrLf)
+                                If Optimization Then optimizedFile.WriteLine Command
 
-                ElseIf StrComp(this, "four") = 0 Then
-                    If Cell(Pointer) > 0 Then Cell(Pointer) = Cell(Pointer) / 4
+                                Select Case Command
+                                    Case "4444"
+                                        If Cell(Pointer) > 127 Then Cell(Pointer) = 52
+                                        WScript.Stdout.Write Chr(Cell(Pointer))
+                                    Case "44UR"
+                                        If Pointer - 1 >= 0 Then Pointer = Pointer - 1
+                                    Case "FO44"
+                                        If Pointer + 1 <= 3 Then Pointer = Pointer + 1
+                                    Case "4OUR"
+                                        If Cell(Pointer) + 4 <= 4444 Then Cell(Pointer) = Cell(Pointer) + 4
+                                    Case "FOU4"
+                                        If Cell(Pointer) - 4 >= 0 Then Cell(Pointer) = Cell(Pointer) - 4
+                                    Case "four"
+                                        If Cell(Pointer) > 0 Then Cell(Pointer) = Cell(Pointer) / 4
+                                    Case "fuor"
+                                        Cell(Pointer) = Cell(Pointer) * 4
+                                    Case "ffff"
+                                        Cell(Pointer) = 0
+                                    Case Else
+                                        If Command = vbNullString Then
+                                            ERROR "[Line " & lineCount & "]" & vbTab & ">>" & vbTab & "[nil]" & vbTab & ">>" & vbTab & "Invalid command." & vbCrLf
+                                        Else
+                                            ERROR "[Line " & lineCount & "]" & vbTab & ">>" & vbTab & "[" & Command & "]" & vbTab & ">>" & vbTab & "Invalid command." & vbCrLf
+                                        End If
+                                        
+                                        If Optimization Then optimizedFile.WriteLine "[error]"
+                                        Halt = True: Exit For
+                                End Select
+                            Next
+                        End If
 
-                ElseIf StrComp(this, "fuor") = 0 Then
-                    Cell(Pointer) = Cell(Pointer) * 4
+                        If Halt Then Exit Do
+                    Loop
 
-                ElseIf StrComp(this, "ffff") = 0 Then
-                    Cell(Pointer) = 0
+                    If Optimization Then
+                        If Halt Then
+                            WScript.Stdout.Write vbCrLf & "[Tetr4phobi4]" & vbTab & ">>" & vbTab & "[-optimize]" & vbTab & "Optimization failed." & vbCrLf & vbCrLf
+                        Else
+                            WScript.Stdout.Write vbCrLf & "[Tetr4phobi4]" & vbTab & ">>" & vbTab & "[-optimize]" & vbTab & "Optimization complete." & vbCrLf & vbCrLf
+                        End If
 
+                        optimizedFile.Close
+                        Set optimizedFile = Nothing
+                    End If
+
+                    sourceFile.Close
+                    Set sourceFile       = Nothing
                 Else
-                    Wscript.Stdout.Write("Error 444: " + this + " is not a valid command.")
-                    Exit Sub
-
+                    ERROR Param(0) & " not found."
                 End If
-            Next
-            Set sourceFile = Nothing
-        Else
-            Wscript.Stdout.Write("Error 444: File does not exist.")
-        End If
-    Else
-        Wscript.Stdout.Write("Error 444: Invalid file type.")
-    End If
-
-    Set FSO = Nothing
+            Else
+                ERROR "Invalid file type."
+            End If
+        Case Else
+            ERROR "[Input Error]" & vbTab & ">>" & vbTab & "[Args(" & WScript.Arguments.Count & ")]" & vbTab & ">>" & vbTab & "Wrong number of arguments." & vbCrLf
+    End Select
 End Sub
+
+Set FSO = Nothing
+Set regexNullComment = Nothing
+Set regexSSSSCommand = Nothing
