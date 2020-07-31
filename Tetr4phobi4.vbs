@@ -1,30 +1,49 @@
 Option Explicit
 
-Const FILE_TYPE     = "444"
-Const ERROR_MSG     = "[Tetr4phobi4 Error]"
-Const REGEX_COMMENT = " +|\{44\}.*|(\r\n|\n|\r){2,}"
-Const REGEX_DOLLARS = "\${4}"
+Private Const FILE_TYPE                = "444"
+Private Const ERROR_MSG                = "[Tetr4phobi4 Error]"
+Private Const REGEX_COMMENT            = " +|\{44\}.*|(\r\n|\n|\r){2,}"
+Private Const REGEX_DOLLARS            = "\${4}"
+Private Const MAX_VAL                  = 4444
+Private Const MIN_VAL                  = 0
+Private Const FOUR                     = 4
 
-Private lineCount  : lineCount   = 0
+Private       FSO
+    set       FSO                      = CreateObject("Scripting.FileSystemObject")
 
-Private Cell(3): Cell(0) = 0: Cell(1) = 0: Cell(2) = 0: Cell(3) = 0
-Private Pointer: Pointer = 0
-Private FSO: set FSO = CreateObject("Scripting.FileSystemObject")
-Private Halt: Halt = False
-Private Optimization: Optimization = False
+Private       lineCount
+              lineCount                = 0
 
-Private regexNullComment: Set regexNullComment = New RegExp
-regexNullComment.Pattern = REGEX_COMMENT
-regexNullComment.Global  = True
+Private       Pointer
+              Pointer                  = 0
 
-Private regexSSSSCommand: Set regexSSSSCommand = New RegExp
-regexSSSSCommand.Pattern = REGEX_DOLLARS
-regexSSSSCommand.Global  = True
+Private       Cell(3)
+              Cell(0)                  = MIN_VAL
+              Cell(1)                  = MIN_VAL
+              Cell(2)                  = MIN_VAL
+              Cell(3)                  = MIN_VAL
 
-Private Sub ERROR(msg): WScript.StdErr.Write vbCrLf & ERROR_MSG & vbTab & ">>" & vbTab & msg: End Sub
+Private       Halt
+              Halt = False
+
+Private       Optimization
+              Optimization             = False
+
+Private       regexNullComment
+    Set       regexNullComment         = New RegExp
+              regexNullComment.Pattern = REGEX_COMMENT
+              regexNullComment.Global  = True
+
+Private       regexSSSSCommand
+    Set       regexSSSSCommand         = New RegExp
+              regexSSSSCommand.Pattern = REGEX_DOLLARS
+              regexSSSSCommand.Global  = True
+
+Private Sub ERROR(msg)
+    WScript.StdErr.Write vbCrLf & ERROR_MSG & vbTab & ">>" & vbTab & msg
+End Sub
 
 Begin WScript.Arguments: Private Sub Begin(Param)
-
     Select Case WScript.Arguments.Count
         Case 0
             ERROR "[Input Error]" & vbTab & ">>" & vbTab & "[nil]" & vbTab & ">>" & vbTab & "There is no arguments." & vbCrLf
@@ -40,7 +59,6 @@ Begin WScript.Arguments: Private Sub Begin(Param)
 
                     Dim optimizedFile: If Optimization Then
                         WScript.Stdout.Write vbCrLf & "[Tetr4phobi4]" & vbTab & ">>" & vbTab & "[-optimize]" & vbTab & "Initialize optimization....." & vbCrLf & vbCrLf
-                        ' WScript.Stdout.Write "[" & FSO.GetParentFolderName(WScript.ScriptFullName) & "\444-optimized\" & FSO.GetBaseName(Param(0)) & "-optimized.444" & "]" & vbCrLf
                         Set optimizedFile = FSO.CreateTextFile(FSO.GetParentFolderName(WScript.ScriptFullName) & "\" & FSO.GetBaseName(Param(0)) & "-optimized.444")
                     End If
 
@@ -63,15 +81,15 @@ Begin WScript.Arguments: Private Sub Begin(Param)
                                     Case "FO44"
                                         If Pointer + 1 <= 3 Then Pointer = Pointer + 1
                                     Case "4OUR"
-                                        If Cell(Pointer) + 4 <= 4444 Then Cell(Pointer) = Cell(Pointer) + 4
+                                        If Cell(Pointer) + FOUR <= MAX_VAL Then Cell(Pointer) = Cell(Pointer) + FOUR
                                     Case "FOU4"
-                                        If Cell(Pointer) - 4 >= 0 Then Cell(Pointer) = Cell(Pointer) - 4
+                                        If Cell(Pointer) - FOUR >= MIN_VAL Then Cell(Pointer) = Cell(Pointer) - FOUR
                                     Case "four"
-                                        If Cell(Pointer) > 0 Then Cell(Pointer) = Cell(Pointer) / 4
+                                        If Cell(Pointer) > 0 Then Cell(Pointer) = Cell(Pointer) / FOUR
                                     Case "fuor"
-                                        Cell(Pointer) = Cell(Pointer) * 4
+                                        Cell(Pointer) = Cell(Pointer) * FOUR
                                     Case "ffff"
-                                        Cell(Pointer) = 0
+                                        Cell(Pointer) = MIN_VAL
                                     Case Else
                                         If Command = vbNullString Then
                                             ERROR "[Line " & lineCount & "]" & vbTab & ">>" & vbTab & "[nil]" & vbTab & ">>" & vbTab & "Invalid command." & vbCrLf
